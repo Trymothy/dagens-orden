@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dagens Orden — Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════════════════════ -->
+<div id="login-screen">
+    <div class="login-card">
+        <div class="login-logo">D/O</div>
+        <h1>Dagens Orden</h1>
+        <p class="login-sub">Redaksjonsverktøy</p>
+
+        <form id="login-form">
+            <div class="field-group">
+                <label for="repo-input">GitHub-repo <span>(bruker/repo)</span></label>
+                <input type="text" id="repo-input" placeholder="trymtofte/dagens-orden" autocomplete="off" required>
+            </div>
+            <div class="field-group">
+                <label for="token-input">Personal Access Token</label>
+                <input type="password" id="token-input" placeholder="ghp_…" autocomplete="off" required>
+            </div>
+            <button type="submit" class="btn-primary" id="login-btn">Logg inn</button>
+            <div id="login-error" class="error-msg" style="display:none;"></div>
+        </form>
+
+        <details class="help-block">
+            <summary>Hvordan opprette token?</summary>
+            <ol>
+                <li>Gå til <strong>github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens</strong></li>
+                <li>Klikk <strong>Generate new token</strong></li>
+                <li>Under <em>Repository access</em>: velg kun dette repoet</li>
+                <li>Under <em>Permissions → Contents</em>: sett til <strong>Read and write</strong></li>
+                <li>Kopier tokenet og lim det inn over</li>
+            </ol>
+        </details>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAIN APP
+════════════════════════════════════════════════════════════ -->
+<div id="app" style="display:none;">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">D/O</div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-view="dashboard">
+                <span class="nav-icon">◈</span> Oversikt
+            </a>
+            <a href="#" class="nav-item" data-view="articles">
+                <span class="nav-icon">≡</span> Artikler
+            </a>
+            <a href="#" class="nav-item" data-view="new-article">
+                <span class="nav-icon">＋</span> Ny artikkel
+            </a>
+            <a href="#" class="nav-item" data-view="submissions">
+                <span class="nav-icon">✉</span> Innboks
+                <span class="badge" id="submission-badge" style="display:none;"></span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-user" id="sidebar-user"></div>
+            <button id="logout-btn" class="btn-logout">Logg ut</button>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main">
+
+        <!-- ── Dashboard ────────────────────────────── -->
+        <div id="view-dashboard" class="view">
+            <div class="view-header">
+                <h2>Oversikt</h2>
+                <a href="../index.html" target="_blank" class="btn-secondary">Se nettsted →</a>
+            </div>
+            <div class="stats-row" id="stats-row">
+                <div class="stat-card"><div class="stat-num" id="stat-published">—</div><div class="stat-label">Publisert</div></div>
+                <div class="stat-card"><div class="stat-num" id="stat-drafts">—</div><div class="stat-label">Utkast</div></div>
+                <div class="stat-card"><div class="stat-num" id="stat-submissions">—</div><div class="stat-label">Innsendte</div></div>
+            </div>
+            <div class="view-section">
+                <h3>Siste artikler</h3>
+                <div id="recent-articles"></div>
+            </div>
+        </div>
+
+        <!-- ── Articles list ────────────────────────── -->
+        <div id="view-articles" class="view" style="display:none;">
+            <div class="view-header">
+                <h2>Artikler</h2>
+                <button class="btn-primary" data-view="new-article">+ Ny artikkel</button>
+            </div>
+            <div class="filter-row">
+                <select id="filter-status">
+                    <option value="">Alle statuser</option>
+                    <option value="published">Publisert</option>
+                    <option value="draft">Utkast</option>
+                </select>
+                <select id="filter-category">
+                    <option value="">Alle kategorier</option>
+                    <option>Figuren</option>
+                    <option>Strømmen</option>
+                    <option>Scenen</option>
+                    <option>Ordenen</option>
+                </select>
+            </div>
+            <table class="article-table">
+                <thead>
+                    <tr>
+                        <th>Tittel</th>
+                        <th>Kategori</th>
+                        <th>Status</th>
+                        <th>Fremhevet</th>
+                        <th>Dato</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="article-table-body"></tbody>
+            </table>
+        </div>
+
+        <!-- ── Article editor ───────────────────────── -->
+        <div id="view-new-article" class="view" style="display:none;">
+            <div class="view-header">
+                <h2 id="editor-heading">Ny artikkel</h2>
+                <div class="editor-actions">
+                    <button class="btn-secondary" id="save-draft-btn">Lagre utkast</button>
+                    <button class="btn-primary" id="publish-btn">Publiser</button>
+                </div>
+            </div>
+            <div class="editor-layout">
+                <div class="editor-main">
+                    <div class="field-group">
+                        <label>Tittel</label>
+                        <input type="text" id="ed-title" placeholder="Artikkeltittel">
+                    </div>
+                    <div class="field-group">
+                        <label>Ingress <span>(vises på forsiden)</span></label>
+                        <textarea id="ed-excerpt" rows="3" placeholder="Kort ingress som lokker leseren inn…"></textarea>
+                    </div>
+                    <div class="field-group">
+                        <label>Brødtekst <span>(HTML støttes)</span></label>
+                        <textarea id="ed-body" rows="20" placeholder="<p>Artikkeltekst her…</p>"></textarea>
+                    </div>
+                </div>
+                <div class="editor-sidebar">
+                    <div class="field-group">
+                        <label>Kategori</label>
+                        <select id="ed-category">
+                            <option value="Figuren">Figuren</option>
+                            <option value="Strømmen">Strømmen</option>
+                            <option value="Scenen">Scenen</option>
+                            <option value="Ordenen" selected>Ordenen</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label>Analysert gjennom <span>(linser)</span></label>
+                        <input type="text" id="ed-lens" placeholder="Habermas · Arendt · Schmitt">
+                    </div>
+                    <div class="field-group">
+                        <label>Forfatter</label>
+                        <input type="text" id="ed-author" value="Redaksjonen">
+                    </div>
+                    <div class="field-group">
+                        <label>Lesetid <span>(minutter)</span></label>
+                        <input type="number" id="ed-readtime" value="8" min="1" max="60">
+                    </div>
+                    <div class="field-group">
+                        <label>Bildefarge</label>
+                        <select id="ed-imagecolor">
+                            <option value="img-dark">Mørk</option>
+                            <option value="img-warm">Varm</option>
+                            <option value="img-cool">Kald blå</option>
+                            <option value="img-green">Grønn</option>
+                            <option value="img-purple">Lilla</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label>Fremheving</label>
+                        <select id="ed-featured">
+                            <option value="">Ingen (kategoriliste)</option>
+                            <option value="featured">Fremhevet kort (topp 3)</option>
+                            <option value="hero">Helteartikkel (forsiden)</option>
+                        </select>
+                    </div>
+                    <div class="field-group" id="ed-id-group" style="display:none;">
+                        <label>Artikkel-ID</label>
+                        <input type="text" id="ed-id" readonly>
+                    </div>
+                    <div class="color-preview">
+                        <div class="img-preview" id="color-preview-box"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="editor-feedback" class="feedback-msg" style="display:none;"></div>
+        </div>
+
+        <!-- ── Submissions ───────────────────────────── -->
+        <div id="view-submissions" class="view" style="display:none;">
+            <div class="view-header">
+                <h2>Innboks — Innsendte artikler</h2>
+            </div>
+            <div id="submissions-list"></div>
+        </div>
+
+    </main>
+</div>
+
+<div id="global-spinner" style="display:none;">
+    <div class="spinner-overlay"><div class="spinner"></div><p id="spinner-msg">Lagrer…</p></div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dagens Orden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .article-page { max-width: 720px; margin: 3rem auto; padding: 0 2rem 5rem; }
+        .article-page .article-meta { margin-bottom: 1.25rem; }
+        .article-page h1 {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            line-height: 1.18;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.25rem;
+        }
+        .article-page .article-standfirst {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--text-body);
+            font-style: italic;
+            border-left: 3px solid var(--accent);
+            padding-left: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .article-page .article-byline {
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+            font-family: var(--sans);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        .article-page .article-hero-img {
+            margin-bottom: 2rem;
+        }
+        .article-page .article-hero-img .img-placeholder {
+            aspect-ratio: 16/7;
+        }
+        .article-body { font-size: 1.05rem; line-height: 1.78; color: var(--text-body); }
+        .article-body p { margin-bottom: 1.4em; }
+        .article-body h2 { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; margin: 2em 0 0.6em; }
+        .article-body h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin: 1.8em 0 0.5em; }
+        .article-body blockquote {
+            font-style: italic;
+            padding-left: 1.25rem;
+            border-left: 3px solid var(--accent);
+            color: var(--text-body);
+            margin: 1.75em 0;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+        }
+        .back-link:hover { color: var(--accent); }
+        #article-loading {
+            text-align: center;
+            padding: 5rem 2rem;
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Masthead -->
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-left">
+                <span class="edition">Nr. 14, 2026</span>
+                <span class="dot">·</span>
+                <span class="date">Torsdag 3. april 2026</span>
+            </div>
+            <div class="header-top-right">
+                <a href="/index.html#newsletter" class="btn-subscribe">Abonner</a>
+            </div>
+        </div>
+        <div class="masthead">
+            <div class="masthead-rule-double"></div>
+            <h1 class="site-title"><a href="/index.html" style="color:inherit;">Dagens Orden</a></h1>
+            <p class="site-tagline">Fra individet til verdensordenen — analyse og innsikt</p>
+            <div class="masthead-rule-double"></div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="/index.html">Forsiden</a></li>
+                <li><a href="/index.html#cat-figuren">Figuren</a></li>
+                <li><a href="/index.html#cat-stromm en">Strømmen</a></li>
+                <li><a href="/index.html#cat-scenen">Scenen</a></li>
+                <li><a href="/index.html#cat-ordenen">Ordenen</a></li>
+                <li><a href="#">Arkiv</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <a href="/index.html" class="back-link">← Tilbake til forsiden</a>
+
+    <div id="article-loading">Laster artikkel…</div>
+
+    <article class="article-page" id="article-page" style="display:none;">
+        <div class="article-meta" id="art-meta"></div>
+        <h1 id="art-title"></h1>
+        <p class="article-standfirst" id="art-excerpt"></p>
+        <div class="article-byline" id="art-byline"></div>
+        <div class="article-hero-img">
+            <div class="img-placeholder" id="art-image"></div>
+        </div>
+        <div class="article-body" id="art-body"></div>
+    </article>
+
+    <script src="/js/config.js"></script>
+    <script>
+    (async function () {
+        const params = new URLSearchParams(location.search);
+        const id = params.get('id');
+        if (!id) { showError('Ingen artikkel funnet.'); return; }
+
+        const cfg = window.DO_CONFIG;
+        if (!cfg || cfg.githubOwner === 'YOUR_GITHUB_USERNAME') {
+            showError('Siden er ikke konfigurert ennå.'); return;
+        }
+
+        const url =
+            `https://raw.githubusercontent.com/${cfg.githubOwner}/${cfg.githubRepo}` +
+            `/${cfg.branch}/${cfg.dataFile}?t=${Date.now()}`;
+
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            const article = data.articles.find(a => a.id === id);
+            if (!article) { showError('Artikkelen ble ikke funnet.'); return; }
+            renderArticle(article);
+        } catch {
+            showError('Kunne ikke laste artikkelen. Prøv igjen.');
+        }
+    })();
+
+    function renderArticle(a) {
+        document.title = `${a.title} — Dagens Orden`;
+
+        document.getElementById('art-meta').innerHTML = `
+            <span class="category-tag">${a.category}</span>
+            <span class="lens-label" style="margin-left:.65rem;">Analysert gjennom ${a.lens}</span>`;
+
+        document.getElementById('art-title').textContent = a.title;
+        document.getElementById('art-excerpt').textContent = a.excerpt;
+
+        document.getElementById('art-byline').innerHTML = `
+            <span class="byline">Av ${a.author}</span>
+            <span>·</span>
+            <span>${new Date(a.publishedAt).toLocaleDateString('no-NO', {day:'numeric',month:'long',year:'numeric'})}</span>
+            <span>·</span>
+            <span>${a.readTime} minutters lesing</span>`;
+
+        document.getElementById('art-image').className = `img-placeholder ${a.imageColor}`;
+        document.getElementById('art-body').innerHTML = a.body;
+
+        document.getElementById('article-loading').style.display = 'none';
+        document.getElementById('article-page').style.display = 'block';
+    }
+
+    function showError(msg) {
+        document.getElementById('article-loading').textContent = msg;
+    }
+    </script>
+</body>
+</html>
