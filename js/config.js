@@ -5,7 +5,7 @@
 
 window.DO_CONFIG = {
   // Your GitHub username
-  githubOwner: 'YOUR_GITHUB_USERNAME',
+  githubOwner: 'Trymothy',
 
   // Your GitHub repository name (the one connected to Netlify)
   githubRepo: 'dagens-orden',
