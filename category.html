@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dagens Orden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .category-page { max-width: 860px; margin: 0 auto; padding: 2rem 2rem 5rem; }
+        .category-page-header {
+            border-bottom: 2px solid var(--text);
+            padding-bottom: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .category-page-header h1 {
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+        .category-page-header .cat-description {
+            font-family: var(--body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        .category-page-header .article-count {
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        .cat-article {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 1.5rem;
+            padding: 1.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .cat-article:first-child { padding-top: 0; }
+        .cat-article-thumb .img-placeholder { aspect-ratio: 4/3; border-radius: 3px; }
+        .cat-article-content { display: flex; flex-direction: column; gap: 0.4rem; }
+        .cat-article-content .category-tag { align-self: flex-start; }
+        .cat-article-content h2 {
+            font-family: var(--serif);
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+        }
+        .cat-article-content h2 a { color: inherit; }
+        .cat-article-content h2 a:hover { color: var(--accent); }
+        .cat-article-content .cat-article-excerpt {
+            font-family: var(--body);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: var(--text-body);
+            margin-top: 0.15rem;
+        }
+        .cat-article-content .byline-row { margin-top: auto; padding-top: 0.4rem; }
+
+        /* Archive mode: all articles */
+        .archive-cats { margin-top: 2rem; }
+        .archive-cat-group { margin-bottom: 3rem; }
+        .archive-cat-group h2 {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--text);
+            padding-bottom: 0.6rem;
+            margin-bottom: 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        #cat-loading {
+            text-align: center;
+            padding: 5rem 2rem;
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 620px) {
+            .cat-article { grid-template-columns: 120px 1fr; gap: 1rem; }
+            .cat-article-content h2 { font-size: 1.05rem; }
+            .cat-article-content .cat-article-excerpt { font-size: 0.85rem; }
+        }
+        @media (max-width: 420px) {
+            .cat-article { grid-template-columns: 1fr; }
+            .cat-article-thumb { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Masthead -->
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-left">
+                <span class="edition">Nr. 14, 2026</span>
+                <span class="dot">·</span>
+                <span class="date">Torsdag 3. april 2026</span>
+            </div>
+            <div class="header-top-right">
+                <a href="/index.html#newsletter" class="btn-subscribe">Abonner</a>
+            </div>
+        </div>
+        <div class="masthead">
+            <div class="masthead-rule-double"></div>
+            <h1 class="site-title"><a href="/index.html" style="color:inherit;">Dagens Orden</a></h1>
+            <p class="site-tagline">Fra subjekt til objekt</p>
+            <div class="masthead-rule-double"></div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="/index.html">Forsiden</a></li>
+                <li><a href="category.html?cat=Figuren" id="nav-figuren">Figuren</a></li>
+                <li><a href="category.html?cat=Strømmen" id="nav-strommen">Strømmen</a></li>
+                <li><a href="category.html?cat=Scenen" id="nav-scenen">Scenen</a></li>
+                <li><a href="category.html?cat=Ordenen" id="nav-ordenen">Ordenen</a></li>
+                <li><a href="category.html?cat=alle" id="nav-arkiv">Arkiv</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <a href="/index.html" class="back-link">← Tilbake til forsiden</a>
+
+    <div id="cat-loading">Laster artikler…</div>
+
+    <div class="category-page" id="category-page" style="display:none;"></div>
+
+    <script src="/js/config.js"></script>
+    <script>
+    (async function () {
+        const params = new URLSearchParams(location.search);
+        const cat = params.get('cat');
+        if (!cat) { showError('Ingen kategori valgt.'); return; }
+
+        const cfg = window.DO_CONFIG;
+        if (!cfg || cfg.githubOwner === 'YOUR_GITHUB_USERNAME') {
+            showError('Siden er ikke konfigurert ennå.'); return;
+        }
+
+        const url =
+            `https://raw.githubusercontent.com/${cfg.githubOwner}/${cfg.githubRepo}` +
+            `/${cfg.branch}/${cfg.dataFile}?t=${Date.now()}`;
+
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+
+            const published = data.articles
+                .filter(a => a.status === 'published')
+                .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+            // Highlight active nav
+            highlightNav(cat);
+
+            if (cat === 'alle') {
+                renderArchive(published);
+            } else {
+                const articles = published.filter(a => a.category === cat);
+                if (!articles.length) { showError(`Ingen artikler i «${cat}» ennå.`); return; }
+                renderCategory(cat, articles);
+            }
+        } catch {
+            showError('Kunne ikke laste artiklene. Prøv igjen.');
+        }
+    })();
+
+    const categoryDescriptions = {
+        'Ordenen': 'Geopolitikk, maktstrukturer og den internasjonale ordenen — analysert gjennom statsvitenskap, filosofi og kritisk teori.',
+        'Figuren': 'Enkeltskikkelser og intellektuelle tradisjoner som former vår tid — fra filosofer til politiske tenkere.',
+        'Strømmen': 'Kulturelle, sosiale og psykologiske strømninger i samtiden — fra massepsykologi til identitetspolitikk.',
+        'Scenen': 'Økonomi, klima og samfunnsstrukturer — de materielle betingelsene som former politikk og kultur.'
+    };
+
+    function highlightNav(cat) {
+        const map = {
+            'Figuren': 'nav-figuren',
+            'Strømmen': 'nav-strommen',
+            'Scenen': 'nav-scenen',
+            'Ordenen': 'nav-ordenen',
+            'alle': 'nav-arkiv'
+        };
+        const id = map[cat];
+        if (id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active');
+        }
+    }
+
+    function renderCategory(cat, articles) {
+        document.title = `${cat} — Dagens Orden`;
+        const page = document.getElementById('category-page');
+        page.innerHTML = `
+            <div class="category-page-header">
+                <h1>${cat}</h1>
+                ${categoryDescriptions[cat] ? `<p class="cat-description">${categoryDescriptions[cat]}</p>` : ''}
+                <p class="article-count">${articles.length} ${articles.length === 1 ? 'artikkel' : 'artikler'}</p>
+            </div>
+            <div class="cat-article-list">
+                ${articles.map(articleCard).join('')}
+            </div>`;
+        show();
+    }
+
+    function renderArchive(articles) {
+        document.title = 'Arkiv — Dagens Orden';
+        const categories = ['Ordenen', 'Figuren', 'Strømmen', 'Scenen'];
+        const page = document.getElementById('category-page');
+        page.innerHTML = `
+            <div class="category-page-header">
+                <h1>Arkiv</h1>
+                <p class="cat-description">Alle publiserte artikler, sortert etter kategori.</p>
+                <p class="article-count">${articles.length} artikler totalt</p>
+            </div>
+            <div class="archive-cats">
+                ${categories.map(cat => {
+                    const catArticles = articles.filter(a => a.category === cat);
+                    if (!catArticles.length) return '';
+                    return `
+                        <div class="archive-cat-group">
+                            <h2>${cat}</h2>
+                            <div class="cat-article-list">
+                                ${catArticles.map(articleCard).join('')}
+                            </div>
+                        </div>`;
+                }).join('')}
+            </div>`;
+        show();
+    }
+
+    function articleCard(a) {
+        const date = new Date(a.publishedAt).toLocaleDateString('no-NO', {
+            day: 'numeric', month: 'long', year: 'numeric'
+        });
+        return `
+            <article class="cat-article">
+                <a href="article.html?id=${a.id}" class="cat-article-thumb">
+                    <div class="img-placeholder ${a.imageColor}"></div>
+                </a>
+                <div class="cat-article-content">
+                    <span class="category-tag">${a.category}</span>
+                    <h2><a href="article.html?id=${a.id}">${a.title}</a></h2>
+                    <p class="cat-article-excerpt">${a.excerpt}</p>
+                    <div class="byline-row">
+                        <span class="lens-tag">${a.lens}</span>
+                        <span class="read-time">${a.readTime} min</span>
+                        <span style="margin-left:auto; font-family:var(--sans); font-size:0.7rem; color:var(--text-muted);">${date}</span>
+                    </div>
+                </div>
+            </article>`;
+    }
+
+    function show() {
+        document.getElementById('cat-loading').style.display = 'none';
+        document.getElementById('category-page').style.display = 'block';
+    }
+
+    function showError(msg) {
+        document.getElementById('cat-loading').textContent = msg;
+    }
+    </script>
+</body>
+</html>
