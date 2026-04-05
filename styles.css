@@ -104,6 +104,43 @@ img { display: block; max-width: 100%; }
   pointer-events: none;
 }
 
+/* Image captions (figcaption under every image) */
+.hero-image, .feat-image, .list-thumb, .cat-article-thumb, .article-hero-img {
+  margin: 0;
+}
+.img-caption {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  padding-top: 0.5rem;
+  letter-spacing: 0.01em;
+}
+.img-caption .img-credit {
+  font-weight: 500;
+  color: var(--text-body);
+}
+.img-caption .img-title {
+  font-style: italic;
+}
+.img-caption .img-sep {
+  color: var(--border);
+  margin: 0 0.1rem;
+}
+.img-caption-sm {
+  font-size: 0.62rem;
+  padding-top: 0.38rem;
+  line-height: 1.35;
+}
+.article-hero-img .img-caption {
+  font-size: 0.72rem;
+  padding-top: 0.6rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
 /* colour variants */
 .img-dark   { background: linear-gradient(145deg, #2A2826 0%, #3E3836 60%, #2F2C2A 100%); }
 .img-warm   { background: linear-gradient(145deg, #C9BBA8 0%, #B5A892 60%, #C4B89F 100%); }

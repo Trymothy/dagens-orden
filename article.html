@@ -128,9 +128,9 @@
         <h1 id="art-title"></h1>
         <p class="article-standfirst" id="art-excerpt"></p>
         <div class="article-byline" id="art-byline"></div>
-        <div class="article-hero-img" id="art-image-wrap">
+        <figure class="article-hero-img" id="art-image-wrap">
             <div class="img-placeholder" id="art-image"></div>
-        </div>
+        </figure>
         <div class="article-body" id="art-body"></div>
     </article>
 
@@ -179,11 +179,15 @@
             <span>·</span>
             <span>${a.readTime} minutters lesing</span>`;
 
+        const cap = a.imageCredit
+            ? `<figcaption class="img-caption"><span class="img-credit">${a.imageCredit}</span><span class="img-sep"> · </span><span class="img-title">${a.imageTitle || ''}</span></figcaption>`
+            : '';
         if (a.image) {
             document.getElementById('art-image-wrap').innerHTML =
-                `<div class="art-img"><img src="${a.image}" alt="${a.title}"></div>`;
+                `<div class="art-img"><img src="${a.image}" alt="${a.title}"></div>${cap}`;
         } else {
-            document.getElementById('art-image').className = `img-placeholder ${a.imageColor}`;
+            document.getElementById('art-image-wrap').innerHTML =
+                `<div class="img-placeholder ${a.imageColor || ''}"></div>${cap}`;
         }
         document.getElementById('art-body').innerHTML = a.body;
 

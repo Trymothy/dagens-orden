@@ -42,6 +42,14 @@ function articleUrl(id) {
   return `article.html?id=${id}`;
 }
 
+function imgFigure(a, {caption = true} = {}) {
+  const inner = a.image
+    ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
+    : `<div class="img-placeholder ${a.imageColor}"></div>`;
+  if (!caption || !a.imageCredit) return inner;
+  return `${inner}<figcaption class="img-caption"><span class="img-credit">${a.imageCredit}</span><span class="img-sep"> · </span><span class="img-title">${a.imageTitle || ''}</span></figcaption>`;
+}
+
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('no-NO', {
     day: 'numeric', month: 'long', year: 'numeric'
@@ -68,13 +76,14 @@ function renderHero(a) {
         <span class="read-time">${a.readTime} minutters lesing</span>
       </div>
     </div>
-    <div class="hero-image">
+    <figure class="hero-image">
       <a href="${articleUrl(a.id)}">
         ${a.image
-          ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"><span class="img-caption-overlay">${a.category}</span></div>`
-          : `<div class="img-placeholder ${a.imageColor}"><span class="img-caption-overlay">${a.category}</span></div>`}
+          ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
+          : `<div class="img-placeholder ${a.imageColor}"></div>`}
       </a>
-    </div>`;
+      ${a.imageCredit ? `<figcaption class="img-caption"><span class="img-credit">${a.imageCredit}</span><span class="img-sep"> · </span><span class="img-title">${a.imageTitle || ''}</span></figcaption>` : ''}
+    </figure>`;
 }
 
 // ── Featured 3-column grid ────────────────────────────────────
@@ -84,13 +93,14 @@ function renderFeatured(articles) {
   if (!el || !articles.length) return;
   el.innerHTML = articles.map((a, i) => `
     <article class="feat-card${i === 1 ? ' feat-card-mid' : ''}">
-      <a href="${articleUrl(a.id)}">
-        <div class="feat-image">
+      <figure class="feat-image">
+        <a href="${articleUrl(a.id)}">
           ${a.image
             ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
             : `<div class="img-placeholder ${a.imageColor}"></div>`}
-        </div>
-      </a>
+        </a>
+        ${a.imageCredit ? `<figcaption class="img-caption"><span class="img-credit">${a.imageCredit}</span><span class="img-sep"> · </span><span class="img-title">${a.imageTitle || ''}</span></figcaption>` : ''}
+      </figure>
       <div class="feat-content">
         <span class="category-tag">${a.category}</span>
         <h3><a href="${articleUrl(a.id)}">${a.title}</a></h3>
@@ -120,11 +130,14 @@ function renderCategories(articles) {
 
     list.innerHTML = items.map(a => `
       <article class="list-article">
-        <a href="${articleUrl(a.id)}" class="list-thumb">
-          ${a.image
-            ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
-            : `<div class="img-placeholder ${a.imageColor}"></div>`}
-        </a>
+        <figure class="list-thumb">
+          <a href="${articleUrl(a.id)}">
+            ${a.image
+              ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
+              : `<div class="img-placeholder ${a.imageColor}"></div>`}
+          </a>
+          ${a.imageCredit ? `<figcaption class="img-caption img-caption-sm"><span class="img-credit">${a.imageCredit}</span></figcaption>` : ''}
+        </figure>
         <div class="list-content">
           <span class="category-tag">${a.category}</span>
           <h3><a href="${articleUrl(a.id)}">${a.title}</a></h3>

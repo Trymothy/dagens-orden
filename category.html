@@ -265,11 +265,14 @@
         });
         return `
             <article class="cat-article">
-                <a href="article.html?id=${a.id}" class="cat-article-thumb">
-                    ${a.image
-                        ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
-                        : `<div class="img-placeholder ${a.imageColor}"></div>`}
-                </a>
+                <figure class="cat-article-thumb">
+                    <a href="article.html?id=${a.id}">
+                        ${a.image
+                            ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
+                            : `<div class="img-placeholder ${a.imageColor}"></div>`}
+                    </a>
+                    ${a.imageCredit ? `<figcaption class="img-caption img-caption-sm"><span class="img-credit">${a.imageCredit}</span><span class="img-sep"> · </span><span class="img-title">${a.imageTitle || ''}</span></figcaption>` : ''}
+                </figure>
                 <div class="cat-article-content">
                     <span class="category-tag">${a.category}</span>
                     <h2><a href="article.html?id=${a.id}">${a.title}</a></h2>

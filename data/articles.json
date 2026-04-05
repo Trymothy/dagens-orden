@@ -14,7 +14,9 @@
       "readTime": 11,
       "imageColor": "img-purple",
       "publishedAt": "2026-04-05T00:00:00Z",
-      "image": "images/marius-hogarth.jpg"
+      "image": "images/marius-hogarth.jpg",
+      "imageCredit": "William Hogarth",
+      "imageTitle": "A Rake's Progress, plate 3 (1735)"
     },
     {
       "id": "gronland-panama-territoriets-tilbakekomst",
@@ -28,7 +30,10 @@
       "author": "Redaksjonen",
       "readTime": 10,
       "imageColor": "img-dark",
-      "publishedAt": "2026-04-04T00:00:00Z"
+      "publishedAt": "2026-04-04T00:00:00Z",
+      "image": "images/gronland-friedrich.jpg",
+      "imageCredit": "Caspar David Friedrich",
+      "imageTitle": "Das Eismeer (1823–24)"
     },
     {
       "id": "iran-krigen-hegemonens-fall",
@@ -43,7 +48,9 @@
       "readTime": 15,
       "imageColor": "img-dark",
       "publishedAt": "2026-04-03T00:00:00Z",
-      "image": "images/iran-bruegel.jpg"
+      "image": "images/iran-bruegel.jpg",
+      "imageCredit": "Pieter Bruegel d.e. (etter)",
+      "imageTitle": "Landskap med Ikaros' fall (ca. 1560)"
     },
     {
       "id": "ai-kjaerester-den-perfekte-lytteren",
@@ -57,7 +64,10 @@
       "author": "Redaksjonen",
       "readTime": 10,
       "imageColor": "img-cool",
-      "publishedAt": "2026-04-02T00:00:00Z"
+      "publishedAt": "2026-04-02T00:00:00Z",
+      "image": "images/ai-caravaggio.jpg",
+      "imageCredit": "Caravaggio",
+      "imageTitle": "Narcissus (ca. 1597–99)"
     },
     {
       "id": "cecot-bukele-unntakstilstanden",
@@ -71,7 +81,10 @@
       "author": "Redaksjonen",
       "readTime": 11,
       "imageColor": "img-dark",
-      "publishedAt": "2026-03-30T00:00:00Z"
+      "publishedAt": "2026-03-30T00:00:00Z",
+      "image": "images/cecot-aerial.jpg",
+      "imageCredit": "Pressefoto",
+      "imageTitle": "CECOT, Tecoluca, El Salvador (2023)"
     },
     {
       "id": "ozempic-tynne-klassen",
@@ -85,7 +98,10 @@
       "author": "Redaksjonen",
       "readTime": 11,
       "imageColor": "img-warm",
-      "publishedAt": "2026-03-27T00:00:00Z"
+      "publishedAt": "2026-03-27T00:00:00Z",
+      "image": "images/ozempic-gillray.jpg",
+      "imageCredit": "James Gillray",
+      "imageTitle": "Temperance Enjoying a Frugal Meal (1792)"
     },
     {
       "id": "halen-som-logrer-med-hunden",
@@ -100,7 +116,9 @@
       "readTime": 15,
       "imageColor": "img-warm",
       "publishedAt": "2026-03-05T00:00:00Z",
-      "image": "images/israel-daumier.jpg"
+      "image": "images/israel-daumier.jpg",
+      "imageCredit": "Honoré Daumier",
+      "imageTitle": "Le Ventre législatif (1834)"
     },
     {
       "id": "epstein-elitens-avsloering",
@@ -115,7 +133,9 @@
       "readTime": 14,
       "imageColor": "img-purple",
       "publishedAt": "2026-02-08T00:00:00Z",
-      "image": "images/epstein-goya.jpg"
+      "image": "images/epstein-goya.jpg",
+      "imageCredit": "Francisco de Goya",
+      "imageTitle": "El sueño de la razón produce monstruos (1799)"
     }
   ],
   "submissions": []
