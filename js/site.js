@@ -112,7 +112,11 @@ function renderCategories(articles) {
     if (!list) return;
 
     const items = articles.filter(a => a.category === cat).slice(0, 3);
-    if (!items.length) return;
+    if (!items.length) {
+      // No articles in this category — hide the whole section
+      section.style.display = 'none';
+      return;
+    }
 
     list.innerHTML = items.map(a => `
       <article class="list-article">
