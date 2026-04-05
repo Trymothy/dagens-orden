@@ -13,7 +13,8 @@
       "author": "Redaksjonen",
       "readTime": 11,
       "imageColor": "img-purple",
-      "publishedAt": "2026-04-05T00:00:00Z"
+      "publishedAt": "2026-04-05T00:00:00Z",
+      "image": "images/marius-hogarth.jpg"
     },
     {
       "id": "iran-krigen-hegemonens-fall",
@@ -27,7 +28,8 @@
       "author": "Redaksjonen",
       "readTime": 15,
       "imageColor": "img-dark",
-      "publishedAt": "2026-04-03T00:00:00Z"
+      "publishedAt": "2026-04-03T00:00:00Z",
+      "image": "images/iran-bruegel.jpg"
     },
     {
       "id": "halen-som-logrer-med-hunden",
@@ -41,7 +43,8 @@
       "author": "Redaksjonen",
       "readTime": 15,
       "imageColor": "img-warm",
-      "publishedAt": "2026-03-05T00:00:00Z"
+      "publishedAt": "2026-03-05T00:00:00Z",
+      "image": "images/israel-daumier.jpg"
     },
     {
       "id": "epstein-elitens-avsloering",
@@ -55,161 +58,8 @@
       "author": "Redaksjonen",
       "readTime": 14,
       "imageColor": "img-purple",
-      "publishedAt": "2026-02-08T00:00:00Z"
-    },
-    {
-      "id": "vestens-selvopplosning",
-      "status": "published",
-      "featured": null,
-      "title": "Vestens selvoppløsning: En filosofisk diagnose av liberalismens indre motsetninger",
-      "category": "Ordenen",
-      "lens": "Habermas · Arendt · Schmitt",
-      "excerpt": "Når vestlige demokratier systematisk undergraver sine egne grunnprinsipper — rettsstaten, den deliberative offentligheten, universelle menneskerettigheter — oppstår et grunnleggende spørsmål: Bærer liberalismen kimen til sin egen undergang i seg? Tre store politiske tenkere gir oss nøkler til å forstå hva som egentlig er i ferd med å skje.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 12,
-      "imageColor": "img-dark",
-      "publishedAt": "2026-04-03T00:00:00Z"
-    },
-    {
-      "id": "den-autoritate-fristelsen",
-      "status": "published",
-      "featured": null,
-      "title": "Den autoritære fristelsen: Lacans «store Andre» og høyrepopulismens psykologi",
-      "category": "Strømmen",
-      "lens": "Lacan · Psykoanalyse",
-      "excerpt": "Hvorfor søker millioner trygghet i autoritære ledere? Psykoanalytisk teori avdekker dynamikker som rasjonell politisk analyse overser.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 9,
-      "imageColor": "img-warm",
-      "publishedAt": "2026-04-03T00:00:00Z"
-    },
-    {
-      "id": "kinas-hegemonistrategi",
-      "status": "published",
-      "featured": null,
-      "title": "Kinas hegemonistrategi og Gramscis kulturelle hegemoni: To teorier møtes",
-      "category": "Ordenen",
-      "lens": "Gramsci · Hegemoniteori",
-      "excerpt": "Gramsci utviklet teorien om kulturelt hegemoni for å forstå kapitalismens reproduksjon. I dag gir den overraskende innsikt i Beijings globale strategi.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 11,
-      "imageColor": "img-cool",
-      "publishedAt": "2026-04-03T00:00:00Z"
-    },
-    {
-      "id": "klimakrisens-sosiologi",
-      "status": "published",
-      "featured": null,
-      "title": "Klimakrisens sosiologi: Kollektiv handlingslammelse og modernitetens paradoks",
-      "category": "Scenen",
-      "lens": "Beck · Bauman · Risikosamfunn",
-      "excerpt": "Ulrich Beck advarte om risikosamfunnet. Zygmunt Bauman beskrev flytende modernitet. Ingen av dem så for seg at vi ville kjenne til faren — og likevel la det skje.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 8,
-      "imageColor": "img-green",
-      "publishedAt": "2026-04-03T00:00:00Z"
-    },
-    {
-      "id": "ukraina-krigen-westfal",
-      "status": "published",
-      "featured": null,
-      "title": "Ukraina-krigen og det westfalske systemets sammenbrudd",
-      "category": "Ordenen",
-      "lens": "Realisme · Konstruktivisme",
-      "excerpt": "Territoriell integritet var grunnsteinen i etterkrigstiden. Hva skjer med internasjonal orden når dette prinsippet brytes uten reelle konsekvenser for aggressoren?",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 7,
-      "imageColor": "img-cool",
-      "publishedAt": "2026-04-02T00:00:00Z"
-    },
-    {
-      "id": "multipolaritetens-sverd",
-      "status": "published",
-      "featured": null,
-      "title": "Multipolaritetens tveegede sverd: Frihet eller kaos?",
-      "category": "Ordenen",
-      "lens": "IR-teori · Strukturell realisme",
-      "excerpt": "Mange hyllet slutten på den amerikanske unipolære momentet. Men hva erstatter det? En analyse av maktskifter gjennom Waltz, Mearsheimer og kritisk teori.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 10,
-      "imageColor": "img-dark",
-      "publishedAt": "2026-04-02T00:00:00Z"
-    },
-    {
-      "id": "gaza-rettssamfunnet",
-      "status": "published",
-      "featured": null,
-      "title": "Gaza og det internasjonale rettssamfunnets legitimitetskrise",
-      "category": "Ordenen",
-      "lens": "Diskursetikk · Folkerett",
-      "excerpt": "Når ICJ ber om stans og verden fortsetter som før, settes legitimitetsspørsmålet på spissen. En analyse gjennom Habermas' diskursetikk og folkeretten.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 9,
-      "imageColor": "img-warm",
-      "publishedAt": "2026-04-01T00:00:00Z"
-    },
-    {
-      "id": "byung-chul-han",
-      "status": "published",
-      "featured": null,
-      "title": "Byung-Chul Han og prestasjonssamfunnets psykologi: Er vi alle selvutnyttere nå?",
-      "category": "Figuren",
-      "lens": "Kritisk teori · Fenomenologi",
-      "excerpt": "Den sørkoreansk-tyske filosofen hevder at vi har internalisert kapitalens krav slik at vi undertrykker oss selv mer effektivt enn noe ytre regime.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 8,
-      "imageColor": "img-purple",
-      "publishedAt": "2026-04-01T00:00:00Z"
-    },
-    {
-      "id": "nihilismens-retur",
-      "status": "published",
-      "featured": null,
-      "title": "Nihilismens retur: Nietzsche og vår tids meningskrise",
-      "category": "Figuren",
-      "lens": "Eksistensialisme · Nietzsche",
-      "excerpt": "«Gud er død» — men hva erstatter de store fortellingene? En analyse av postmodernitetens meningsvakuum og de farlige svarene som tilbys fra høyre og venstre.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 11,
-      "imageColor": "img-dark",
-      "publishedAt": "2026-03-31T00:00:00Z"
-    },
-    {
-      "id": "trumps-tollkrig",
-      "status": "published",
-      "featured": null,
-      "title": "Trumps tollkrig som symptom: Hva Polanyi kan lære oss om den store tilbakesvingen",
-      "category": "Scenen",
-      "lens": "Politisk økonomi · Polanyi",
-      "excerpt": "Karl Polanyis «The Great Transformation» fra 1944 beskriver hvordan markedsekspansjon uvegerlig skaper motreaksjoner. Hans analyse er mer relevant enn noensinne.",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 9,
-      "imageColor": "img-warm",
-      "publishedAt": "2026-03-31T00:00:00Z"
-    },
-    {
-      "id": "tillit-sosial-kapital",
-      "status": "published",
-      "featured": null,
-      "title": "Tillit og sosial kapital i krise: Hvem stoler vi på, og hvorfor slutter vi?",
-      "category": "Scenen",
-      "lens": "Sosiologi · Deliberativt demokrati",
-      "excerpt": "Robert Putnam dokumenterte nedgangen i sosial kapital i USA for tiår siden. Nå ser vi lignende mønstre i Skandinavia. Hva driver erosjonen av institusjonell tillit?",
-      "body": "<p>Artikkelen er under utarbeidelse.</p>",
-      "author": "Redaksjonen",
-      "readTime": 7,
-      "imageColor": "img-green",
-      "publishedAt": "2026-03-30T00:00:00Z"
+      "publishedAt": "2026-02-08T00:00:00Z",
+      "image": "images/epstein-goya.jpg"
     }
   ],
   "submissions": []

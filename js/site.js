@@ -70,9 +70,9 @@ function renderHero(a) {
     </div>
     <div class="hero-image">
       <a href="${articleUrl(a.id)}">
-        <div class="img-placeholder ${a.imageColor}">
-          <span class="img-caption-overlay">${a.category}</span>
-        </div>
+        ${a.image
+          ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"><span class="img-caption-overlay">${a.category}</span></div>`
+          : `<div class="img-placeholder ${a.imageColor}"><span class="img-caption-overlay">${a.category}</span></div>`}
       </a>
     </div>`;
 }
@@ -86,7 +86,9 @@ function renderFeatured(articles) {
     <article class="feat-card${i === 1 ? ' feat-card-mid' : ''}">
       <a href="${articleUrl(a.id)}">
         <div class="feat-image">
-          <div class="img-placeholder ${a.imageColor}"></div>
+          ${a.image
+            ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
+            : `<div class="img-placeholder ${a.imageColor}"></div>`}
         </div>
       </a>
       <div class="feat-content">
@@ -115,7 +117,9 @@ function renderCategories(articles) {
     list.innerHTML = items.map(a => `
       <article class="list-article">
         <a href="${articleUrl(a.id)}" class="list-thumb">
-          <div class="img-placeholder ${a.imageColor}"></div>
+          ${a.image
+            ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
+            : `<div class="img-placeholder ${a.imageColor}"></div>`}
         </a>
         <div class="list-content">
           <span class="category-tag">${a.category}</span>

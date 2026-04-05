@@ -76,6 +76,34 @@ img { display: block; max-width: 100%; }
 .feat-image .img-placeholder       { aspect-ratio: 16/9; }
 .list-thumb .img-placeholder       { aspect-ratio: 4/3; }
 
+/* real image wrapper (same aspect ratios as placeholders) */
+.art-img {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #1A1A1A;
+}
+.art-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(35%) contrast(1.03) saturate(0.92);
+  transition: filter 0.35s ease;
+}
+.art-img:hover img { filter: grayscale(0%) contrast(1.05) saturate(1); }
+.hero-image .art-img    { aspect-ratio: 5/4; }
+.feat-image .art-img    { aspect-ratio: 16/9; }
+.list-thumb .art-img    { aspect-ratio: 4/3; }
+.cat-article-thumb .art-img { aspect-ratio: 4/3; border-radius: 3px; }
+.art-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.25) 100%);
+  pointer-events: none;
+}
+
 /* colour variants */
 .img-dark   { background: linear-gradient(145deg, #2A2826 0%, #3E3836 60%, #2F2C2A 100%); }
 .img-warm   { background: linear-gradient(145deg, #C9BBA8 0%, #B5A892 60%, #C4B89F 100%); }

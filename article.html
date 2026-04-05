@@ -43,7 +43,8 @@
         .article-page .article-hero-img {
             margin-bottom: 2rem;
         }
-        .article-page .article-hero-img .img-placeholder {
+        .article-page .article-hero-img .img-placeholder,
+        .article-page .article-hero-img .art-img {
             aspect-ratio: 16/7;
         }
         .article-body { font-size: 1.05rem; line-height: 1.78; color: var(--text-body); }
@@ -127,7 +128,7 @@
         <h1 id="art-title"></h1>
         <p class="article-standfirst" id="art-excerpt"></p>
         <div class="article-byline" id="art-byline"></div>
-        <div class="article-hero-img">
+        <div class="article-hero-img" id="art-image-wrap">
             <div class="img-placeholder" id="art-image"></div>
         </div>
         <div class="article-body" id="art-body"></div>
@@ -178,7 +179,12 @@
             <span>·</span>
             <span>${a.readTime} minutters lesing</span>`;
 
-        document.getElementById('art-image').className = `img-placeholder ${a.imageColor}`;
+        if (a.image) {
+            document.getElementById('art-image-wrap').innerHTML =
+                `<div class="art-img"><img src="${a.image}" alt="${a.title}"></div>`;
+        } else {
+            document.getElementById('art-image').className = `img-placeholder ${a.imageColor}`;
+        }
         document.getElementById('art-body').innerHTML = a.body;
 
         document.getElementById('article-loading').style.display = 'none';

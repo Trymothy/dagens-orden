@@ -266,7 +266,9 @@
         return `
             <article class="cat-article">
                 <a href="article.html?id=${a.id}" class="cat-article-thumb">
-                    <div class="img-placeholder ${a.imageColor}"></div>
+                    ${a.image
+                        ? `<div class="art-img"><img src="${a.image}" alt="${a.title}" loading="lazy"></div>`
+                        : `<div class="img-placeholder ${a.imageColor}"></div>`}
                 </a>
                 <div class="cat-article-content">
                     <span class="category-tag">${a.category}</span>
