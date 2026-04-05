@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt — Dagens Orden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .contact-page {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 5rem;
+        }
+        .contact-header {
+            border-bottom: 2px solid var(--text-primary);
+            padding-bottom: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .contact-header h1 {
+            font-family: var(--serif);
+            font-size: clamp(1.9rem, 4vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+        .contact-intro {
+            font-family: var(--body);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: var(--text-body);
+        }
+        .contact-intro p + p { margin-top: 0.75rem; }
+        .contact-intro a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* ── Form ── */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .form-row label {
+            font-family: var(--sans);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .form-row label .req { color: var(--accent); margin-left: 0.2rem; }
+        .form-row input,
+        .form-row select,
+        .form-row textarea {
+            font-family: var(--body);
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 0.7rem 0.85rem;
+            outline: none;
+            transition: border-color 0.18s, box-shadow 0.18s;
+            font-family: var(--body);
+        }
+        .form-row input:focus,
+        .form-row select:focus,
+        .form-row textarea:focus {
+            border-color: var(--text-primary);
+            box-shadow: 0 0 0 2px rgba(26,26,26,0.08);
+        }
+        .form-row textarea {
+            resize: vertical;
+            min-height: 160px;
+            font-family: var(--body);
+        }
+        .form-row select {
+            font-family: var(--sans);
+            font-size: 0.92rem;
+            cursor: pointer;
+        }
+        .form-hint {
+            font-family: var(--sans);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .btn-submit {
+            align-self: flex-start;
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.8rem 1.6rem;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.18s;
+            margin-top: 0.35rem;
+        }
+        .btn-submit:hover:not(:disabled) { background: var(--accent-hover); }
+        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .form-status {
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            padding: 0.85rem 1rem;
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        .form-status.show { display: block; }
+        .form-status.success {
+            background: #EFF3EB;
+            border-left: 3px solid #5A7A3F;
+            color: #2E4A1F;
+        }
+        .form-status.error {
+            background: #F6ECEC;
+            border-left: 3px solid var(--accent);
+            color: var(--accent-hover);
+        }
+
+        /* ── Sidebar ── */
+        .contact-sidebar {
+            padding-top: 0.25rem;
+        }
+        .sidebar-block + .sidebar-block {
+            margin-top: 1.75rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .sidebar-block h3 {
+            font-family: var(--sans);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.55rem;
+        }
+        .sidebar-block p,
+        .sidebar-block a {
+            font-family: var(--body);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: var(--text-body);
+        }
+        .sidebar-block a {
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-block a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        @media (max-width: 760px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.25rem;
+            }
+            .contact-sidebar {
+                border-top: 1px solid var(--border);
+                padding-top: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Masthead -->
+    <header class="site-header">
+        <div class="header-top">
+            <div class="header-top-left">
+                <span class="edition">Nr. 14, 2026</span>
+                <span class="dot">·</span>
+                <span class="date">Søndag 5. april 2026</span>
+            </div>
+            <div class="header-top-right">
+                <a href="/index.html#newsletter" class="btn-subscribe">Abonner</a>
+            </div>
+        </div>
+        <div class="masthead">
+            <div class="masthead-rule-double"></div>
+            <h1 class="site-title"><a href="/index.html" style="color:inherit;">Dagens Orden</a></h1>
+            <p class="site-tagline">Fra individet til verdensordenen — analyse og innsikt</p>
+            <div class="masthead-rule-double"></div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="/index.html">Forsiden</a></li>
+                <li><a href="/category.html?cat=Figuren">Figuren</a></li>
+                <li><a href="/category.html?cat=Strømmen">Strømmen</a></li>
+                <li><a href="/category.html?cat=Scenen">Scenen</a></li>
+                <li><a href="/category.html?cat=Ordenen">Ordenen</a></li>
+                <li><a href="/category.html?cat=alle">Arkiv</a></li>
+                <li><a href="/kontakt.html" class="active">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <a href="/index.html" class="back-link">← Tilbake til forsiden</a>
+
+    <main class="contact-page">
+        <header class="contact-header">
+            <h1>Kontakt redaksjonen</h1>
+            <div class="contact-intro">
+                <p>Har du et tips, en korreksjon, eller ønsker å foreslå et tema eller en innsending? Skriv til oss. Vi leser alt som kommer inn, og svarer så raskt vi rekker.</p>
+                <p>Journalister, kilder og varslere som ønsker en kryptert kanal: send en kort melding nedenfor så svarer vi med instruksjoner.</p>
+            </div>
+        </header>
+
+        <div class="contact-grid">
+            <form class="contact-form" id="contact-form" novalidate>
+                <div class="form-row">
+                    <label for="c-name">Navn <span class="req">*</span></label>
+                    <input type="text" id="c-name" name="name" required autocomplete="name">
+                </div>
+
+                <div class="form-row">
+                    <label for="c-email">E-postadresse <span class="req">*</span></label>
+                    <input type="email" id="c-email" name="email" required autocomplete="email">
+                    <span class="form-hint">Vi bruker denne kun til å svare deg.</span>
+                </div>
+
+                <div class="form-row">
+                    <label for="c-subject">Hva gjelder det?</label>
+                    <select id="c-subject" name="subject">
+                        <option value="Generell henvendelse">Generell henvendelse</option>
+                        <option value="Tips til sak">Tips til sak</option>
+                        <option value="Innsending / debattinnlegg">Innsending / debattinnlegg</option>
+                        <option value="Korreksjon / feil">Korreksjon / feil</option>
+                        <option value="Pressehenvendelse">Pressehenvendelse</option>
+                        <option value="Varsling (kryptert kanal)">Varsling (kryptert kanal)</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="c-message">Melding <span class="req">*</span></label>
+                    <textarea id="c-message" name="message" rows="7" required></textarea>
+                </div>
+
+                <!-- Honeypot (bot trap) -->
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+                <button type="submit" class="btn-submit" id="submit-btn">Send melding</button>
+
+                <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+            </form>
+
+            <aside class="contact-sidebar">
+                <div class="sidebar-block">
+                    <h3>E-post direkte</h3>
+                    <p><a id="direct-email" href="mailto:redaksjon@dagensorden.no">redaksjon@dagensorden.no</a></p>
+                </div>
+                <div class="sidebar-block">
+                    <h3>Responstid</h3>
+                    <p>Normalt innen 48 timer på hverdager.</p>
+                </div>
+                <div class="sidebar-block">
+                    <h3>Om personvern</h3>
+                    <p>Vi deler aldri e-postadressen din, og vi lagrer ikke mer enn det vi trenger for å svare på henvendelsen.</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <h3 class="footer-title">Dagens Orden</h3>
+                    <p class="footer-tagline">Fra individet til verdensordenen</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Seksjoner</h4>
+                        <ul>
+                            <li><a href="/category.html?cat=Figuren">Figuren</a></li>
+                            <li><a href="/category.html?cat=Strømmen">Strømmen</a></li>
+                            <li><a href="/category.html?cat=Scenen">Scenen</a></li>
+                            <li><a href="/category.html?cat=Ordenen">Ordenen</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Om</h4>
+                        <ul>
+                            <li><a href="/category.html?cat=alle">Arkiv</a></li>
+                            <li><a href="/kontakt.html">Kontakt</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p class="footer-bottom">© 2026 Dagens Orden</p>
+        </div>
+    </footer>
+
+    <script src="/js/config.js"></script>
+    <script>
+    (function () {
+        const cfg = window.DO_CONFIG || {};
+        const form = document.getElementById('contact-form');
+        const btn = document.getElementById('submit-btn');
+        const status = document.getElementById('form-status');
+        const directLink = document.getElementById('direct-email');
+
+        if (cfg.editorEmail) {
+            directLink.href = 'mailto:' + cfg.editorEmail;
+            directLink.textContent = cfg.editorEmail;
+        }
+
+        function showStatus(type, msg) {
+            status.className = 'form-status show ' + type;
+            status.textContent = msg;
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            status.className = 'form-status';
+
+            // Honeypot
+            if (form._gotcha.value) return;
+
+            // Validate
+            const name = form.name.value.trim();
+            const email = form.email.value.trim();
+            const message = form.message.value.trim();
+            if (!name || !email || !message) {
+                showStatus('error', 'Vennligst fyll ut navn, e-post og melding.');
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showStatus('error', 'Vennligst skriv inn en gyldig e-postadresse.');
+                return;
+            }
+
+            if (!cfg.formspreeId || cfg.formspreeId === 'REPLACE_WITH_YOUR_FORMSPREE_ID') {
+                showStatus('error', 'Skjemaet er ikke konfigurert ennå. Send e-post direkte til ' + (cfg.editorEmail || 'redaksjonen') + ' i mellomtiden.');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Sender…';
+
+            try {
+                const res = await fetch('https://formspree.io/f/' + cfg.formspreeId, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        subject: form.subject.value,
+                        message: message,
+                        _subject: 'Dagens Orden kontakt: ' + form.subject.value
+                    })
+                });
+                if (res.ok) {
+                    form.reset();
+                    showStatus('success', 'Takk. Meldingen er mottatt — vi svarer så snart vi kan.');
+                } else {
+                    const data = await res.json().catch(() => ({}));
+                    showStatus('error', (data && data.error) || 'Noe gikk galt. Prøv igjen, eller send e-post direkte.');
+                }
+            } catch (err) {
+                showStatus('error', 'Kunne ikke sende. Sjekk nettforbindelsen og prøv igjen.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Send melding';
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
