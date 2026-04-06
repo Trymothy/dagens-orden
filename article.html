@@ -192,12 +192,76 @@
         }
         document.getElementById('art-body').innerHTML = a.body;
 
+        // Initialize citation tooltips
+        initCiteTooltips();
+
         document.getElementById('article-loading').style.display = 'none';
         document.getElementById('article-page').style.display = 'block';
     }
 
     function showError(msg) {
         document.getElementById('article-loading').textContent = msg;
+    }
+
+    /* ── Citation tooltip logic ── */
+    function initCiteTooltips() {
+        let activeTooltip = null;
+
+        function dismiss() {
+            if (activeTooltip) {
+                activeTooltip.classList.remove('show');
+                activeTooltip = null;
+            }
+        }
+
+        document.querySelectorAll('.cite[data-original]').forEach(el => {
+            const tip = document.createElement('div');
+            tip.className = 'cite-tooltip';
+
+            let html = '<div class="cite-original">' + el.dataset.original + '</div>';
+            const parts = [];
+            if (el.dataset.source) parts.push(el.dataset.source);
+            if (el.dataset.date) parts.push(el.dataset.date);
+            if (parts.length || el.dataset.url) {
+                html += '<div class="cite-attr">';
+                html += parts.join(' · ');
+                if (el.dataset.url) {
+                    html += (parts.length ? ' · ' : '') +
+                        '<a href="' + el.dataset.url + '" target="_blank" rel="noopener">Kilde ↗</a>';
+                }
+                html += '</div>';
+            }
+            tip.innerHTML = html;
+            el.appendChild(tip);
+            el.style.position = 'relative';
+
+            function showTip() {
+                dismiss();
+                // Flip if near top of viewport
+                const rect = el.getBoundingClientRect();
+                tip.classList.toggle('flip', rect.top < 160);
+                tip.classList.add('show');
+                activeTooltip = tip;
+            }
+
+            // Desktop hover
+            el.addEventListener('mouseenter', showTip);
+            el.addEventListener('mouseleave', () => {
+                if (activeTooltip === tip) dismiss();
+            });
+
+            // Touch/click toggle
+            el.addEventListener('click', e => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (activeTooltip === tip) { dismiss(); }
+                else { showTip(); }
+            });
+        });
+
+        // Dismiss on outside tap
+        document.addEventListener('click', dismiss);
+        document.addEventListener('touchstart', dismiss);
     }
     </script>
 </body>

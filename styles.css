@@ -793,3 +793,82 @@ img { display: block; max-width: 100%; }
   .list-article { grid-template-columns: 1fr; }
   .list-thumb { display: none; }
 }
+
+/* ============================================================
+   CITATION TOOLTIPS
+   Translated quotes shown in accent red.
+   Hover/tap shows original English + source attribution.
+   ============================================================ */
+
+.cite {
+  color: var(--accent);
+  cursor: help;
+  border-bottom: 1px dotted var(--accent);
+  position: relative;
+}
+
+.cite-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max(280px, min(400px, 80vw));
+  background: var(--text-primary);
+  color: #F7F4EE;
+  padding: 1rem 1.15rem;
+  border-radius: 3px;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+.cite-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--text-primary);
+}
+.cite-tooltip.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.cite-tooltip .cite-original {
+  font-family: var(--body);
+  font-style: italic;
+  font-size: 0.82rem;
+  margin-bottom: 0.55rem;
+  color: #E8E2D8;
+}
+.cite-tooltip .cite-original::before { content: '"'; }
+.cite-tooltip .cite-original::after  { content: '"'; }
+.cite-tooltip .cite-attr {
+  font-size: 0.68rem;
+  color: #A09A90;
+  letter-spacing: 0.02em;
+}
+.cite-tooltip .cite-attr a {
+  color: #A09A90;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  pointer-events: auto;
+}
+.cite-tooltip .cite-attr a:hover { color: #E8E2D8; }
+
+/* Flip tooltip below on small screens / near top */
+.cite-tooltip.flip {
+  bottom: auto;
+  top: calc(100% + 10px);
+}
+.cite-tooltip.flip::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--text-primary);
+}
